@@ -12,11 +12,10 @@ def concave_glide_path(t, T, steepness):
     return 100 - 100 * np.power(t / T, steepness)
 
 def s_shape_glide_path(t, T, s_steepness):
-    return 100 - 100 / (1 + np.exp(-s_steepness * (t - T / 2)))
+    return 100 / (1 + np.exp(-s_steepness * (t - T / 2)))
 
 def parabolic_glide_path(t, T, peak_time, parabolic_steepness):
-    a = parabolic_steepness / (peak_time * (peak_time - T))
-    return 100 - a * (t - peak_time) ** 2
+    return 100 - parabolic_steepness * (t - peak_time) ** 2
 
 st.title("Risk Glide Paths Visualization")
 
@@ -27,7 +26,7 @@ with left_column:
     T = st.slider("Total Time Period", 50, 200, 100)
     steepness = st.slider("Steepness for Convex and Concave Paths", 1.0, 5.0, 3.0)
     peak_time = st.slider("Peak Time for Parabolic Path", 10, T-10, 50)
-    parabolic_steepness = st.slider("Steepness for Parabolic Path", 1.0, 5.0, 2.0)
+    parabolic_steepness = st.slider("Steepness for Parabolic Path", 0.001, 0.1, 0.01)
     s_steepness = st.slider("Steepness for S-Shape Path", 0.01, 0.5, 0.1)
 
 t = np.linspace(0, T, 500)
