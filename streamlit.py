@@ -12,7 +12,7 @@ def concave_glide_path(t, T, steepness):
     return 100 - 100 * np.power(t / T, steepness)
 
 def s_shape_glide_path(t, T, s_steepness):
-    return 100 / (1 + np.exp(-s_steepness * (t - T / 2)))
+    return 100 / (1 + np.exp(s_steepness * (T / 2 - t)))
 
 def parabolic_glide_path(t, T, peak_time, parabolic_steepness):
     return 100 - parabolic_steepness * (t - peak_time) ** 2
